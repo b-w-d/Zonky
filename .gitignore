@@ -45,6 +45,8 @@ Temporary Items
 
 DEV/ExampleBinary/bin/
 DEV/ExampleBinary/obj/
+DEV/ImageCatalog/bin/
+DEV/ImageCatalog/obj/
 TEST/ExampleTest/bin/
 TEST/ExampleTest/obj/
 TOOLS/ExampleTool/bin/
