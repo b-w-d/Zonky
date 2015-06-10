@@ -53,3 +53,6 @@ TOOLS/ExampleTool/bin/
 TOOLS/ExampleTool/obj/
 UI/PegView/obj/
 UI/PegView/bin/
+
+*.suo
+*.user

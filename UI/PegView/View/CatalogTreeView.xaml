@@ -6,12 +6,34 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <TreeView ItemsSource="{Binding Path=Catalog}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TreeView Grid.Row="0" ItemsSource="{Binding Path=Catalog}" ScrollViewer.VerticalScrollBarVisibility="Visible">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding ChildContainers}">
                     <TreeViewItem Header="{Binding ItemName}"></TreeViewItem>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
+        </TreeView>
+        <TreeView Grid.Row="1" ItemsSource="{Binding Path=Catalog}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding ChildContainers}">
+                    <TextBlock Foreground="Black" Text="{Binding ItemName}"></TextBlock>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>            
+        </TreeView>
+        <TreeView Grid.Row="2">
+            <TreeViewItem Header="Foo">
+                <TreeViewItem Header="Bar1"></TreeViewItem>
+                <TreeViewItem Header="Bar2">
+                    <TreeViewItem Header="This1"></TreeViewItem>
+                    <TreeViewItem Header="This2"></TreeViewItem>
+                </TreeViewItem>                
+                <TreeViewItem Header="Bar3"></TreeViewItem>
+            </TreeViewItem>
         </TreeView>
     </Grid>
 </UserControl>
