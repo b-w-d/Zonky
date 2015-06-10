@@ -50,11 +50,18 @@ namespace ImageCatalog
         /// <summary>
         /// The path to the item.
         /// </summary>
-        public string Path
+        public string ItemFullPath
         {
             get;
             protected set;
         }
+
+        public string ItemName
+        {
+            get;
+            protected set;
+        }
+
 
         /// <summary>
         /// Add a descriptive tag to the item

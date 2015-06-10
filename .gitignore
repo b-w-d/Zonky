@@ -51,6 +51,5 @@ TEST/ExampleTest/bin/
 TEST/ExampleTest/obj/
 TOOLS/ExampleTool/bin/
 TOOLS/ExampleTool/obj/
-UI/PegView/bin/Debug/PegView.exe
-UI/PegView/bin/Debug/PegView.pdb
 UI/PegView/obj/
+UI/PegView/bin/

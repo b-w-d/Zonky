@@ -11,14 +11,14 @@ namespace PegView.ViewModel
 {
     public class ImageCatalogViewModel : ViewModelBase
     {
-        protected ObservableCollection<CatalogItemBase> items;
+        protected ObservableCollection<FolderCatalogItem> items;
 
         public ImageCatalogViewModel()
         {
-            this.items = new ObservableCollection<CatalogItemBase>();
+            this.items = new ObservableCollection<FolderCatalogItem>();
         }
 
-        public ObservableCollection<CatalogItemBase> Catalog
+        public ObservableCollection<FolderCatalogItem> Catalog
         {
             get
             {
@@ -26,13 +26,13 @@ namespace PegView.ViewModel
             }
         }
 
-        public void AddItem(CatalogItemBase itemToAdd)
+        public void AddItem(FolderCatalogItem itemToAdd)
         {
             this.items.Add(itemToAdd);
             this.RaisePropertyChangedEvent("Catalog");
         }
 
-        public void RemoveItem(CatalogItemBase itemToRemove)
+        public void RemoveItem(FolderCatalogItem itemToRemove)
         {
             if(this.items.Contains(itemToRemove))
             {
