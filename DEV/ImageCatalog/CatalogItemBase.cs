@@ -10,7 +10,7 @@ namespace ImageCatalog
     /// Base class for CatalogItems. Folders, Files, etc. Contains basic properties for
     /// tags, ratings, anything else. 
     /// </summary>
-    public abstract class CatalogItemBase
+    public class CatalogItemBase
     {
         /// <summary>
         /// Internal set of tags on this item

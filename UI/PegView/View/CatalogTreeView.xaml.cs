@@ -28,11 +28,13 @@ namespace PegView.View
             InitializeComponent();
             ImageCatalogViewModel catalog = new ImageCatalogViewModel();
 
+            string searchPattern = @"jpg$|jpeg$|bmp$|gif$|png$";
+
             // TODO : Don't use our local paths
-            catalog.AddItem(new FolderCatalogItem(@"C:\Users\Brian\Pictures\Pictures"));
-            catalog.AddItem(new FolderCatalogItem(@"C:\Users\Brian\Pictures\"));
-            catalog.AddItem(new FolderCatalogItem(@"C:\Users\Brian\Pictures\wallpapers"));
-            catalog.AddItem(new FolderCatalogItem(@"C:\Users\Brian\Pictures\From Asteroid\Camera roll"));
+            catalog.AddItem(new NavTreeFolder(@"C:\Users\Brian\Pictures\Pictures", searchPattern));
+            catalog.AddItem(new NavTreeFolder(@"C:\Users\Brian\Pictures\", searchPattern));
+            catalog.AddItem(new NavTreeFolder(@"C:\Users\Brian\Pictures\wallpapers", searchPattern));
+            catalog.AddItem(new NavTreeFolder(@"C:\Users\Brian\Pictures\From Asteroid\Camera roll", searchPattern));
 
             DataContext = catalog;
         }

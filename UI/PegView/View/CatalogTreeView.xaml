@@ -11,29 +11,19 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <TreeView Grid.Row="0" ItemsSource="{Binding Path=Catalog}" ScrollViewer.VerticalScrollBarVisibility="Visible">
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding ChildContainers}">
-                    <TreeViewItem Header="{Binding ItemName}"></TreeViewItem>
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-        </TreeView>
-        <TreeView Grid.Row="1" ItemsSource="{Binding Path=Catalog}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+        <TreeView Name="NavTree" Grid.Row="0" ItemsSource="{Binding Path=Catalog}" ScrollViewer.VerticalScrollBarVisibility="Visible">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding ChildContainers}">
                     <TextBlock Foreground="Black" Text="{Binding ItemName}"></TextBlock>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>            
         </TreeView>
-        <TreeView Grid.Row="2">
-            <TreeViewItem Header="Foo">
-                <TreeViewItem Header="Bar1"></TreeViewItem>
-                <TreeViewItem Header="Bar2">
-                    <TreeViewItem Header="This1"></TreeViewItem>
-                    <TreeViewItem Header="This2"></TreeViewItem>
-                </TreeViewItem>                
-                <TreeViewItem Header="Bar3"></TreeViewItem>
-            </TreeViewItem>
-        </TreeView>
+        <ListBox Grid.Row="1" ItemsSource="{Binding ElementName=NavTree, Path=SelectedItem.ChildItems}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding ItemName}"></TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>
