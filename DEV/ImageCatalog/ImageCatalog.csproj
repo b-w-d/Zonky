@@ -39,10 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CatalogItemBase.cs" />
+    <Compile Include="DisplayItemProperties.cs" />
     <Compile Include="DisplayItem.cs" />
     <Compile Include="NavTreeFolder.cs" />
-    <Compile Include="ImageCatalog.cs" />
+    <Compile Include="Catalog.cs" />
     <Compile Include="NavTreeItemBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TagRegister.cs" />

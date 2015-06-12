@@ -7,23 +7,50 @@ using System.Threading.Tasks;
 namespace ImageCatalog
 {
     /// <summary>
-    /// Base class for CatalogItems. Folders, Files, etc. Contains basic properties for
-    /// tags, ratings, anything else. 
+    /// Properties contained about a displayItem. These are identified via FullPath (string). 
+    /// These can be folders or files. These should be stored in a higher-level container class (supporting constant
+    /// time lookup, probably in item FullPath, probably using a dictionary).
+    /// Not every DisplayItem will have properties - if properties are not found, appropriate default values 
+    /// should be available (example empty internalTags, null rating, etc).
     /// </summary>
-    public class CatalogItemBase
+    public class DisplayItemProperties
     {
         /// <summary>
         /// Internal set of tags on this item
         /// </summary>
         protected HashSet<string> internalTags;
+
+        /// <summary>
+        /// Internal storage of item rating
+        /// </summary>
+        protected int? rating;
         
         /// <summary>
         /// Construct a new CatalogItem
         /// </summary>
-        public CatalogItemBase()
+        public DisplayItemProperties()
         {
-            this.Rating = null;
+            this.rating = null;
             this.internalTags = new HashSet<string>();
+        }
+
+        /// <summary>
+        /// Copy Constructor
+        /// </summary>
+        /// <param name="other"></param>
+        public DisplayItemProperties(DisplayItemProperties other)
+        {
+            this.internalTags = new HashSet<string>(other.internalTags);
+            this.rating = other.rating;
+        }
+
+        /// <summary>
+        /// Constructor taking a path
+        /// </summary>
+        /// <param name="fullPath"></param>
+        public DisplayItemProperties(string fullPath) : this()
+        {
+            this.ItemFullPath = fullPath;
         }
         
         /// <summary>
@@ -31,8 +58,22 @@ namespace ImageCatalog
         /// </summary>
         public int? Rating
         {
-            get;
-            set;
+            get
+            {
+                return this.rating;
+            }
+            
+            set
+            {
+                if(value == null || (value < 5 && value > 0))
+                {
+                    this.rating = value;
+                }
+                else
+                {
+                    this.rating = null;
+                }
+            }
         }
 
         /// <summary>
@@ -56,12 +97,14 @@ namespace ImageCatalog
             protected set;
         }
 
+        /// <summary>
+        /// Item Name
+        /// </summary>
         public string ItemName
         {
             get;
             protected set;
         }
-
 
         /// <summary>
         /// Add a descriptive tag to the item

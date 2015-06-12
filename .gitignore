@@ -53,6 +53,8 @@ TOOLS/ExampleTool/bin/
 TOOLS/ExampleTool/obj/
 UI/PegView/obj/
 UI/PegView/bin/
+ImageCatalogTests/bin/
+ImageCatalogTests/obj/
 
 *.suo
 *.user
