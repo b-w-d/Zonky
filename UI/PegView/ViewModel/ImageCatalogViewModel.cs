@@ -30,7 +30,7 @@ namespace PegView.ViewModel
         /// <summary>
         /// Command to add folder to NavTree
         /// </summary>
-        protected ICommand addFolderCommand;
+        protected RelayCommand addFolderCommand;
 
         /// <summary>
         /// holder for new folder input
@@ -44,18 +44,6 @@ namespace PegView.ViewModel
         {
             this.items = new ObservableCollection<NavTreeFolder>();
             this.userInputNewFolder = null;
-            
-            // function to run when a new item is added to the folder list. 
-            // for now, hardcoding child files (jpgs, etc). 
-            this.addFolderCommand = new DelegateCommand((parameter) =>
-            {
-                string path = parameter as string;
-
-                this.items.Add(new NavTreeFolder(path, @"jpg$|jpeg$|bmp$|gif$|png$"));
-                this.UserInputNewFolderPath = string.Empty;
-                this.RaisePropertyChangedEvent("UserInputNewFolderPath");
-                this.RaisePropertyChangedEvent("Catalog");
-            });
         }
 
         /// <summary>
@@ -65,7 +53,23 @@ namespace PegView.ViewModel
         {
             get
             {
-                return addFolderCommand;
+                if(this.addFolderCommand == null)
+                {
+                    this.addFolderCommand = new RelayCommand(
+                        // function to run when a new item is added to the folder list. 
+                        // for now, hardcoding child files (jpgs, etc). 
+                        (parameter) =>
+                        {
+                            string path = parameter as string;
+
+                            this.items.Add(new NavTreeFolder(path, @"jpg$|jpeg$|bmp$|gif$|png$"));
+                            this.UserInputNewFolderPath = string.Empty;
+                            this.RaisePropertyChangedEvent("UserInputNewFolderPath");
+                            this.RaisePropertyChangedEvent("Catalog");
+                        }, 
+                        param => this.AddFolderValid);
+                }
+                return this.addFolderCommand;
             }
         }
 

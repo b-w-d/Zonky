@@ -55,6 +55,7 @@
     </ApplicationDefinition>
     <Compile Include="ViewModel\DelegateCommand.cs" />
     <Compile Include="ViewModel\ImageCatalogViewModel.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\CatalogTreeView.xaml.cs">
       <DependentUpon>CatalogTreeView.xaml</DependentUpon>

@@ -41,8 +41,7 @@
             </Border>
             <Button Width="100" 
                     Command="{Binding CommandAddNewFile}" 
-                    CommandParameter="{Binding ElementName=NewFileInput, Path=Text}"
-                    IsEnabled="{Binding AddFolderValid}">LOAD</Button>
+                    CommandParameter="{Binding ElementName=NewFileInput, Path=Text}">LOAD</Button>
         </StackPanel>
         <TreeView Name="NavTree" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=NavTreeRootItems}" ScrollViewer.VerticalScrollBarVisibility="Visible">
             <TreeView.ItemTemplate>
