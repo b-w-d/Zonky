@@ -13,7 +13,7 @@ namespace PegView.ViewModel
     /// This handles the INotifyPropertyChanged interface, allowing updates to be passed to the view.
     /// 
     /// </summary>
-    public class ViewModelBase : INotifyPropertyChanged
+    public class ViewModelBase : INotifyPropertyChanged, IDataErrorInfo
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -22,6 +22,25 @@ namespace PegView.ViewModel
             var handler = PropertyChanged;
             if (handler != null)
                 handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public string Error
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public string this[string propertyName]
+        {
+            get
+            {
+                return OnValidate(propertyName);
+            }
+        }
+
+        
+        protected virtual string OnValidate(string propertyName)
+        {
+            return null;
         }
     }
 }

@@ -95,7 +95,11 @@ namespace ImageCatalog
                 }
 
                 foreach (DirectoryInfo dir in directories)
-                {
+                {                    
+                    if(!this.IsAccessAuthorized(dir))
+                    {
+                        continue;
+                    }
                     NavTreeFolder newItem = new NavTreeFolder(dir.FullName);
                     newItem.searchPatterns = this.searchPatterns;
                     toReturn.Add(newItem);
@@ -145,6 +149,21 @@ namespace ImageCatalog
                 }
 
                 return toReturn;
+            }
+        }
+
+        private bool IsAccessAuthorized(DirectoryInfo folderPath)
+        {
+            try
+            {
+                // Attempt to get a list of security permissions from the folder. 
+                // This will raise an exception if the path is read only or do not have access to view the permissions. 
+                DirectoryInfo[] directories = folderPath.GetDirectories();
+                return true;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return false;
             }
         }
     }

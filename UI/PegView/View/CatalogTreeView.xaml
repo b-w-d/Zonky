@@ -5,20 +5,53 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors).CurrentItem.ErrorContent}"></Setter>                    
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>            
         </Grid.RowDefinitions>
-        <TreeView Name="NavTree" Grid.Row="0" ItemsSource="{Binding Path=Catalog}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+            <!-- This shit absolutely needs to be redone. -->
+            <Border>
+                <TextBox Width="200" 
+                         VerticalAlignment="Center" 
+                         HorizontalAlignment="Center" 
+                         Name="NewFileInput"                          
+                         Text="{Binding UserInputNewFolderPath, 
+                                Mode=TwoWay, 
+                                UpdateSourceTrigger=PropertyChanged, 
+                                ValidatesOnDataErrors=True,
+                                NotifyOnValidationError=True}">
+                </TextBox>
+            </Border>
+            <Button Width="100" 
+                    Command="{Binding CommandAddNewFile}" 
+                    CommandParameter="{Binding ElementName=NewFileInput, Path=Text}"
+                    IsEnabled="{Binding AddFolderValid}">LOAD</Button>
+        </StackPanel>
+        <TreeView Name="NavTree" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=NavTreeRootItems}" ScrollViewer.VerticalScrollBarVisibility="Visible">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding ChildContainers}">
-                    <TextBlock Foreground="Black" Text="{Binding ItemName}"></TextBlock>
+                    <TextBlock Foreground="Black" Text="{Binding ItemName}" ToolTip="{Binding ItemFullPath}" ></TextBlock>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>            
         </TreeView>
-        <ListBox Grid.Row="1" ItemsSource="{Binding ElementName=NavTree, Path=SelectedItem.ChildItems}">
+        <ListBox Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" ItemsSource="{Binding ElementName=NavTree, Path=SelectedItem.ChildItems}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding ItemName}"></TextBlock>
