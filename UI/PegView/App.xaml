@@ -1,7 +1,7 @@
 ﻿<Application x:Class="PegView.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="View/CatalogTreeView.xaml">
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
          
     </Application.Resources>

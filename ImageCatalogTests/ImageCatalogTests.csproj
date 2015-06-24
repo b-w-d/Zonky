@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="ImageCatalogUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="JsonSaveLoadTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DEV\ImageCatalog\ImageCatalog.csproj">

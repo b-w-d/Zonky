@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace ImageCatalog
 {
@@ -18,11 +19,13 @@ namespace ImageCatalog
         /// <summary>
         /// Internal set of tags on this item
         /// </summary>
+        [JsonProperty]
         protected HashSet<string> internalTags;
 
         /// <summary>
         /// Internal storage of item rating
         /// </summary>
+        [JsonProperty]
         protected int? rating;
         
         /// <summary>
@@ -48,9 +51,11 @@ namespace ImageCatalog
         /// Constructor taking a path
         /// </summary>
         /// <param name="fullPath"></param>
-        public DisplayItemProperties(string fullPath) : this()
+        [JsonConstructor]
+        public DisplayItemProperties(string ItemFullPath)
+            : this()
         {
-            this.ItemFullPath = fullPath;
+            this.ItemFullPath = ItemFullPath;
         }
         
         /// <summary>

@@ -25,16 +25,7 @@ namespace PegView.View
     {
         public CatalogTreeView()
         {
-            InitializeComponent();
-            ImageCatalogViewModel catalog = new ImageCatalogViewModel();
-
-            // TODO : Don't use our local paths
-            catalog.CommandAddNewFile.Execute(@"C:\Users\Brian\Pictures\Pictures");
-            catalog.CommandAddNewFile.Execute(@"C:\Users\Brian\Pictures\");
-            catalog.CommandAddNewFile.Execute(@"C:\Users\Brian\Pictures\wallpapers");
-            catalog.CommandAddNewFile.Execute(@"C:\Users\Brian\Pictures\From Asteroid\Camera roll");
-
-            DataContext = catalog;
+            InitializeComponent();          
         }
     }
 }

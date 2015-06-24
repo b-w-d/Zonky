@@ -26,7 +26,7 @@ namespace PegView.ViewModel
 
         public string Error
         {
-            get { throw new NotImplementedException(); }
+            get { return string.Empty; }
         }
 
         public string this[string propertyName]

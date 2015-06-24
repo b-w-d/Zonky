@@ -43,7 +43,7 @@ namespace PegView.ViewModel
         public ImageCatalogViewModel()
         {
             this.items = new ObservableCollection<NavTreeFolder>();
-            this.userInputNewFolder = null;
+            this.userInputNewFolder = null;            
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace PegView.ViewModel
                         {
                             string path = parameter as string;
 
-                            this.items.Add(new NavTreeFolder(path, @"jpg$|jpeg$|bmp$|gif$|png$"));
+                            this.items.Add(new NavTreeFolder(path));
                             this.UserInputNewFolderPath = string.Empty;
                             this.RaisePropertyChangedEvent("UserInputNewFolderPath");
                             this.RaisePropertyChangedEvent("Catalog");

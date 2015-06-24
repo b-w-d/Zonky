@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace ImageCatalog
 {
@@ -23,15 +24,23 @@ namespace ImageCatalog
         /// Recommend keeping short and simple.
         /// </summary>
         protected List<string> searchPatterns;
-        
+
+        /// <summary>
+        /// The default extensions to match for child files
+        /// </summary>
+        protected const string defaultSearchPatterns = @"jpg$|jpeg$|bmp$|gif$|png$";
+
         /// <summary>
         /// Construct a new NavTreeFolder, on the given folderRoot
         /// </summary>
         /// <param name="folderRoot">A folder to use as the NavItem. This folder should exist on disk</param>
-        public NavTreeFolder(string folderRoot) : base()
-        {
+        [JsonConstructor]
+        public NavTreeFolder(string ItemFullPath)
+            : base()
+        {            
             this.FileMatchPattern = new List<string>();
-            this.ItemFullPath = folderRoot;
+            this.FileMatchPattern.Add(defaultSearchPatterns);
+            this.ItemFullPath = ItemFullPath;
             this.FileMatchPattern = this.searchPatterns;
             this.dirInfo = new DirectoryInfo(this.ItemFullPath);
         }
@@ -65,8 +74,9 @@ namespace ImageCatalog
 
         /// <summary>
         /// The name of the folder
-        /// </summary>
-        public new string ItemName
+        /// </summary>        
+        [JsonIgnore]
+        public override string ItemName
         {
             get
             {
@@ -75,10 +85,20 @@ namespace ImageCatalog
         }
 
         /// <summary>
+        /// The full path to the item.
+        /// </summary>
+        public override string ItemFullPath
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Child Folders in this folder. Child folders will have
         /// identical searchPattern logic to the parent.
         /// </summary>
-        public new List<NavTreeItemBase> ChildContainers
+        [JsonIgnore]
+        public override List<NavTreeItemBase> ChildContainers
         {
             get
             {
@@ -108,7 +128,7 @@ namespace ImageCatalog
                 return toReturn;
             }
 
-            set
+            protected set
             {
                 throw new NotImplementedException();
             }
@@ -118,7 +138,8 @@ namespace ImageCatalog
         /// The items contained in this NavItem. here just 
         /// display all files found matching searchPatterns.
         /// </summary>
-        public new List<DisplayItem> ChildItems
+        [JsonIgnore]
+        public override List<DisplayItem> ChildItems
         {
             get
             {

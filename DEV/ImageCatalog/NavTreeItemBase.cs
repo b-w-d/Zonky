@@ -14,16 +14,16 @@ namespace ImageCatalog
         /// <summary>
         /// The full path to the item.
         /// </summary>
-        public string ItemFullPath
+        public virtual string ItemFullPath
         {
             get;
-            protected set;
+            set;
         }
 
         /// <summary>
         /// The display name in the UI
         /// </summary>
-        public string ItemName
+        public virtual string ItemName
         {
             get;
             protected set;
@@ -32,7 +32,7 @@ namespace ImageCatalog
         /// <summary>
         /// Child NavTree items, containing hierarchal data
         /// </summary>
-        public List<NavTreeItemBase> ChildContainers
+        public virtual List<NavTreeItemBase> ChildContainers
         {
             get;
             protected set;
@@ -42,7 +42,7 @@ namespace ImageCatalog
         /// The items contained in this NavItem, probably
         /// images/files to display
         /// </summary>
-        public List<DisplayItem> ChildItems
+        public virtual List<DisplayItem> ChildItems
         {
             get;
             protected set;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace ImageCatalog
 {
@@ -17,11 +18,13 @@ namespace ImageCatalog
         /// <summary>
         /// Structure containing the info
         /// </summary>
+        [JsonProperty]
         protected Dictionary<string, DisplayItemProperties> internalItemMap;
 
         /// <summary>
         /// TagRegister to help map tags to files
         /// </summary>
+        [JsonProperty]
         protected TagRegister tagRegister;
 
         /// <summary>
