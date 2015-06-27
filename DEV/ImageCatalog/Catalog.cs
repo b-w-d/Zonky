@@ -36,11 +36,16 @@ namespace ImageCatalog
             this.tagRegister = new TagRegister();
         }
 
+        public static DisplayItemProperties DefaultDisplayItemProperties()
+        {
+            return new DisplayItemProperties();
+        }
+
         public DisplayItemProperties GetDisplayItemProperties(string file)
         {
             if (!this.internalItemMap.ContainsKey(file))
             {
-                return new DisplayItemProperties();
+                return Catalog.DefaultDisplayItemProperties();
             }
 
             return new DisplayItemProperties(this.internalItemMap[file]);

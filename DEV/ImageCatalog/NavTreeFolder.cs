@@ -20,56 +20,43 @@ namespace ImageCatalog
         protected DirectoryInfo dirInfo;
 
         /// <summary>
-        /// List holding regex patterns. Each pattern is used to search valid file name patterns. 
-        /// Recommend keeping short and simple.
-        /// </summary>
-        protected List<string> searchPatterns;
-
-        /// <summary>
         /// The default extensions to match for child files
         /// </summary>
         protected const string defaultSearchPatterns = @"jpg$|jpeg$|bmp$|gif$|png$";
-
+        
         /// <summary>
         /// Construct a new NavTreeFolder, on the given folderRoot
         /// </summary>
-        /// <param name="folderRoot">A folder to use as the NavItem. This folder should exist on disk</param>
-        [JsonConstructor]
+        /// <param name="folderRoot">A folder to use as the NavItem. This folder should exist on disk</param>        
         public NavTreeFolder(string ItemFullPath)
             : base()
-        {            
-            this.FileMatchPattern = new List<string>();
-            this.FileMatchPattern.Add(defaultSearchPatterns);
+        {
+            this.FileMatchPattern = defaultSearchPatterns;
             this.ItemFullPath = ItemFullPath;
-            this.FileMatchPattern = this.searchPatterns;
-            this.dirInfo = new DirectoryInfo(this.ItemFullPath);
-        }
+            this.dirInfo = new DirectoryInfo(this.ItemFullPath);            
+        }        
 
         /// <summary>
         /// Construct a new NavTreeFolder, on the given folderRoot and with a single fileSearchPattern.
         /// </summary>
         /// <param name="folderRoot">A folder to use as the NavItem. This folder should exist on disk</param>
         /// <param name="searchPattern">A search regex used to check child files in this folder</param>
-        public NavTreeFolder(string folderRoot, string searchPattern) : this(folderRoot)
+        [JsonConstructor]
+        public NavTreeFolder(string ItemFullPath, string FileMatchPattern)
+            : this(ItemFullPath)
         {
-            this.searchPatterns.Add(searchPattern);
+            this.FileMatchPattern = FileMatchPattern;
         }
 
         /// <summary>
         /// Regex patterns used to check 'ChildItem' files in this folder. Matching follows
         /// 'OR' logic, any file in the folder that matches will be included
         /// </summary>
-        public List<string> FileMatchPattern
+        public string FileMatchPattern
         {
-            get
-            {
-                return this.searchPatterns;
-            }
-            
-            protected set
-            {
-                this.searchPatterns = value;
-            }
+            get;
+
+            protected set;
         }
 
         /// <summary>
@@ -88,6 +75,13 @@ namespace ImageCatalog
         /// The full path to the item.
         /// </summary>
         public override string ItemFullPath
+        {
+            get;
+            set;
+        }
+        
+        [JsonIgnore]
+        public Catalog CatalogRef
         {
             get;
             set;
@@ -120,8 +114,7 @@ namespace ImageCatalog
                     {
                         continue;
                     }
-                    NavTreeFolder newItem = new NavTreeFolder(dir.FullName);
-                    newItem.searchPatterns = this.searchPatterns;
+                    NavTreeFolder newItem = new NavTreeFolder(dir.FullName, this.FileMatchPattern);
                     toReturn.Add(newItem);
                 }
 
@@ -157,16 +150,18 @@ namespace ImageCatalog
 
                 foreach (FileInfo file in files)
                 {
-                    foreach(string regexPattern in this.searchPatterns)
+                    if(Regex.IsMatch(file.Name, this.FileMatchPattern))
                     {
-                        if(Regex.IsMatch(file.Name, regexPattern))
-                        {
-                            toReturn.Add(new DisplayItem(file.FullName));
-                            goto nextOuterLoop; // :P
-                        }
-                    }
+                        DisplayItem newItem = new DisplayItem(file.FullName);
 
-                nextOuterLoop: ; 
+                        newItem.Properties = this.CatalogRef != null ? 
+                            this.CatalogRef.GetDisplayItemProperties(file.FullName) : 
+                            Catalog.DefaultDisplayItemProperties();
+
+                        newItem.RunTimeProperties = new DisplayItemRuntimeProperties(file.FullName);
+                            
+                        toReturn.Add(newItem);
+                    }
                 }
 
                 return toReturn;

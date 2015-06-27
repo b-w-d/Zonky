@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:view="clr-namespace:PegView.View"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -18,10 +19,10 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>            
+            <RowDefinition></RowDefinition>        
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -50,12 +51,13 @@
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>            
         </TreeView>
-        <ListBox Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" ItemsSource="{Binding ElementName=NavTree, Path=SelectedItem.ChildItems}">
+        <ListBox Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" ItemsSource="{Binding ElementName=NavTree, Path=SelectedItem.ChildItems}" Name="ItemListBox">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding ItemName}"></TextBlock>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <view:ImagePropertyView Grid.RowSpan="2" Background="Red" x:Name="PropertyView" Grid.Column="3" Grid.Row="0" DataContext="{Binding ElementName=ItemListBox, Path=SelectedItem}"></view:ImagePropertyView>
     </Grid>
 </UserControl>

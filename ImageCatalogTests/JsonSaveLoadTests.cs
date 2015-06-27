@@ -71,6 +71,20 @@ namespace ImageCatalogTests
         }
 
         [TestMethod]
+        public void SaveLoadNavTreeFolderSearchPatterns()
+        {
+            string searchPattern = "z/x";
+
+            NavTreeFolder navTreeOriginal = new NavTreeFolder(@"TestDir", searchPattern);
+
+            jsonSaveLoad.Save<NavTreeFolder>("path.json", navTreeOriginal);
+            navTreeOriginal = null;
+            NavTreeFolder navTreeLoadedFirst = jsonSaveLoad.Load<NavTreeFolder>("path.json");
+
+            Assert.IsTrue(navTreeLoadedFirst.FileMatchPattern == searchPattern);
+        }
+
+        [TestMethod]
         public void SaveLoadCatalog()
         {
             Catalog originalCatalog = new Catalog();

@@ -4,6 +4,6 @@
         xmlns:view="clr-namespace:PegView.View"
         Title="MainWindow" Height="600" Width="825">
     <Grid>
-        <view:CatalogTreeView x:Name="CatalogView"></view:CatalogTreeView>
+        <view:CatalogTreeView x:Name="CatalogView"></view:CatalogTreeView>        
     </Grid>
 </Window>

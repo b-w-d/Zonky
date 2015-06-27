@@ -23,11 +23,6 @@ namespace PegView.ViewModel
         protected ObservableCollection<NavTreeFolder> items;
 
         /// <summary>
-        /// Catalog, maps metadata about files
-        /// </summary>
-        protected Catalog catalog;
-
-        /// <summary>
         /// Command to add folder to NavTree
         /// </summary>
         protected RelayCommand addFolderCommand;
@@ -42,6 +37,7 @@ namespace PegView.ViewModel
         /// </summary>
         public ImageCatalogViewModel()
         {
+            this.ImageCatalog = new Catalog();
             this.items = new ObservableCollection<NavTreeFolder>();
             this.userInputNewFolder = null;            
         }
@@ -61,8 +57,9 @@ namespace PegView.ViewModel
                         (parameter) =>
                         {
                             string path = parameter as string;
-
-                            this.items.Add(new NavTreeFolder(path));
+                            NavTreeFolder itemToAdd = new NavTreeFolder(path);
+                            itemToAdd.CatalogRef = this.ImageCatalog;
+                            this.items.Add(itemToAdd);
                             this.UserInputNewFolderPath = string.Empty;
                             this.RaisePropertyChangedEvent("UserInputNewFolderPath");
                             this.RaisePropertyChangedEvent("Catalog");
@@ -82,6 +79,12 @@ namespace PegView.ViewModel
             {
                 return this.items;
             }
+        }
+
+        public Catalog ImageCatalog
+        {
+            get;
+            set;
         }
      
         /// <summary>

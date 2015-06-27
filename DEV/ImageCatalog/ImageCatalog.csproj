@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,6 +46,7 @@
   <ItemGroup>
     <Compile Include="DisplayItemProperties.cs" />
     <Compile Include="DisplayItem.cs" />
+    <Compile Include="DisplayItemRuntimeProperties.cs" />
     <Compile Include="IFileSaveLoad.cs" />
     <Compile Include="NavTreeFolder.cs" />
     <Compile Include="Catalog.cs" />

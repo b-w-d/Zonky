@@ -56,5 +56,7 @@ UI/PegView/bin/
 ImageCatalogTests/bin/
 ImageCatalogTests/obj/
 
+Catalog.data
+
 *.suo
 *.user

@@ -39,6 +39,12 @@ namespace PegView
                 loaded = new ImageCatalogViewModel();
             }
 
+            // Hack, until we figure out how JsonSaveLoad handles references
+            foreach(var v in loaded.NavTreeRootItems)
+            {
+                v.CatalogRef = loaded.ImageCatalog;
+            }
+
             catalogTreeView.DataContext = this.catalogViewModel = loaded;
             this.Closing += OnClosing;
         }

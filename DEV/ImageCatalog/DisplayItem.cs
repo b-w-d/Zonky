@@ -41,5 +41,23 @@ namespace ImageCatalog
                 return fileInfo.Name;
             }
         }
+
+        /// <summary>
+        /// User added properties about the item
+        /// </summary>
+        public DisplayItemProperties Properties
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Run time properties about the item
+        /// </summary>
+        public DisplayItemRuntimeProperties RunTimeProperties
+        {
+            get;
+            set;
+        }
     }
 }

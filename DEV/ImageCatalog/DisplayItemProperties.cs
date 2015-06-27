@@ -27,7 +27,12 @@ namespace ImageCatalog
         /// </summary>
         [JsonProperty]
         protected int? rating;
-        
+
+        /// <summary>
+        /// Internal holder of the ItemFullPath property
+        /// </summary>
+        protected string itemFullPath;
+
         /// <summary>
         /// Construct a new CatalogItem
         /// </summary>
@@ -98,8 +103,14 @@ namespace ImageCatalog
         /// </summary>
         public string ItemFullPath
         {
-            get;
-            protected set;
+            get
+            {
+                return this.itemFullPath;
+            }
+            protected set
+            {
+                this.itemFullPath = value;
+            }
         }
 
         /// <summary>
@@ -141,6 +152,6 @@ namespace ImageCatalog
             
             // TODO : possible event hookup with TagRegister ?
             // if nothing else, be sure the caller handles it manually;
-        }
+        }     
     }
 }
