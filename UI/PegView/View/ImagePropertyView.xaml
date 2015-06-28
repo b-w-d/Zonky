@@ -7,12 +7,15 @@
              >
     <StackPanel Height="700">
 
-        
+        <Image Source="{Binding Path=ItemFullPath}"></Image>
         <TextBlock Text="{Binding Path=ItemFullPath}"></TextBlock>
+        
+        
         <TextBlock Text="{Binding Path=ItemName}"></TextBlock>
         <TextBlock Text="{Binding Path=RunTimeProperties.BitsRead}"></TextBlock>
         <TextBlock Text="{Binding Path=RunTimeProperties.ByteArrayTaskAccessCount}"></TextBlock>
         <TextBlock Text="{Binding Path=RunTimeProperties.ImageLoadTaskAccessCount}"></TextBlock>
         <TextBlock Text="{Binding Path=RunTimeProperties.ImageProperties.Height}"></TextBlock>
+        <TextBlock Text="{Binding Path=UserProperties.Tags}"></TextBlock>
     </StackPanel>
 </UserControl>

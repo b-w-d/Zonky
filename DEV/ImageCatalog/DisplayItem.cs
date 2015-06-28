@@ -45,7 +45,7 @@ namespace ImageCatalog
         /// <summary>
         /// User added properties about the item
         /// </summary>
-        public DisplayItemProperties Properties
+        public DisplayItemUserProperties UserProperties
         {
             get;
             set;

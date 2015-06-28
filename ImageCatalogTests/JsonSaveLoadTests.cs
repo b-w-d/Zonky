@@ -118,17 +118,17 @@ namespace ImageCatalogTests
         public void SaveLoadTagRegister()
         {
             TagRegister original = new TagRegister();
-            original.Register("Cat", new DisplayItemProperties("Item1"));
-            original.Register("Dog", new DisplayItemProperties("Item1"));
-            original.Register("Dog", new DisplayItemProperties("Item2"));
+            original.Register("Cat", new DisplayItemUserProperties("Item1"));
+            original.Register("Dog", new DisplayItemUserProperties("Item1"));
+            original.Register("Dog", new DisplayItemUserProperties("Item2"));
 
             jsonSaveLoad.Save<TagRegister>("TagRegister.Json", original);
 
             original = null;
 
             TagRegister loaded = jsonSaveLoad.Load<TagRegister>("TagRegister.Json");
-            List<DisplayItemProperties> propsCat = new List<DisplayItemProperties>(loaded.Get("Cat"));
-            List<DisplayItemProperties> propsDog = new List<DisplayItemProperties>(loaded.Get("Dog"));
+            List<DisplayItemUserProperties> propsCat = new List<DisplayItemUserProperties>(loaded.Get("Cat"));
+            List<DisplayItemUserProperties> propsDog = new List<DisplayItemUserProperties>(loaded.Get("Dog"));
             Assert.IsTrue(propsCat.Count == 1);
             Assert.IsTrue(propsCat[0].ItemFullPath == "Item1");
             
@@ -140,15 +140,15 @@ namespace ImageCatalogTests
         [TestMethod]
         public void SaveLoadDisplayItemProperty()
         {
-            DisplayItemProperties propsOriginal = new DisplayItemProperties("FooPath");
+            DisplayItemUserProperties propsOriginal = new DisplayItemUserProperties("FooPath");
             propsOriginal.Rating = 2;
             propsOriginal.AddTag("Cat");
             propsOriginal.AddTag("Dog");
 
-            jsonSaveLoad.Save<DisplayItemProperties>("DisplayItemProperties.Json", propsOriginal);
+            jsonSaveLoad.Save<DisplayItemUserProperties>("DisplayItemProperties.Json", propsOriginal);
 
             propsOriginal = null;
-            DisplayItemProperties propsLoaded = jsonSaveLoad.Load<DisplayItemProperties>("DisplayItemProperties.Json");
+            DisplayItemUserProperties propsLoaded = jsonSaveLoad.Load<DisplayItemUserProperties>("DisplayItemProperties.Json");
 
             Assert.IsTrue(propsLoaded.Rating == 2);
             List<string> loadedTags = new List<string>(propsLoaded.Tags);

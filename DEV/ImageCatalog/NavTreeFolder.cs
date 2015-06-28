@@ -154,7 +154,7 @@ namespace ImageCatalog
                     {
                         DisplayItem newItem = new DisplayItem(file.FullName);
 
-                        newItem.Properties = this.CatalogRef != null ? 
+                        newItem.UserProperties = this.CatalogRef != null ? 
                             this.CatalogRef.GetDisplayItemProperties(file.FullName) : 
                             Catalog.DefaultDisplayItemProperties();
 

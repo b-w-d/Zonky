@@ -18,14 +18,14 @@ namespace ImageCatalog
         /// Map of references tags --> CatalogItems
         /// </summary>
         [JsonProperty]
-        protected Dictionary<string, List<DisplayItemProperties>> tagBase;
+        protected Dictionary<string, List<DisplayItemUserProperties>> tagBase;
 
         /// <summary>
         /// Construct a new, empty, TagRegister
         /// </summary>
         public TagRegister()
         {
-            this.tagBase = new Dictionary<string, List<DisplayItemProperties>>();
+            this.tagBase = new Dictionary<string, List<DisplayItemUserProperties>>();
         }
 
         /// <summary>
@@ -33,11 +33,11 @@ namespace ImageCatalog
         /// </summary>
         /// <param name="tagName">The name of the tag</param>
         /// <param name="item">A reference to the item to tag</param>
-        public void Register(string tagName, DisplayItemProperties item)
+        public void Register(string tagName, DisplayItemUserProperties item)
         {
             if(!this.tagBase.ContainsKey(tagName))
             {
-                this.tagBase.Add(tagName, new List<DisplayItemProperties>());
+                this.tagBase.Add(tagName, new List<DisplayItemUserProperties>());
             }
 
             if(this.tagBase[tagName].Contains(item))
@@ -56,14 +56,14 @@ namespace ImageCatalog
         /// </summary>
         /// <param name="tagName">the tag name</param>
         /// <param name="item">reference to the DisplayItemProperties to remove</param>
-        public void DeList(string tagName, DisplayItemProperties item)
+        public void DeList(string tagName, DisplayItemUserProperties item)
         {
             if(!this.tagBase.ContainsKey(tagName))
             {
                 return;
             }
 
-            List<DisplayItemProperties> itemCollection = this.tagBase[tagName];
+            List<DisplayItemUserProperties> itemCollection = this.tagBase[tagName];
 
             if (itemCollection.Where(props => props.Equals(item)).ToList().Count > 1)
             {
@@ -79,14 +79,14 @@ namespace ImageCatalog
         /// </summary>
         /// <param name="tagName">The tag to search for</param>
         /// <returns>The items matching that tagname</returns>
-        public IEnumerable<DisplayItemProperties> Get(string tagName)
+        public IEnumerable<DisplayItemUserProperties> Get(string tagName)
         {
             if(this.tagBase.ContainsKey(tagName))
             {
-                return this.tagBase[tagName].AsEnumerable<DisplayItemProperties>();
+                return this.tagBase[tagName].AsEnumerable<DisplayItemUserProperties>();
             }
 
-            return new List<DisplayItemProperties>();
+            return new List<DisplayItemUserProperties>();
         }
     }
 }

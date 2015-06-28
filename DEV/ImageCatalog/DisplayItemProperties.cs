@@ -14,7 +14,7 @@ namespace ImageCatalog
     /// Not every DisplayItem will have properties - if properties are not found, appropriate default values 
     /// should be available (example empty internalTags, null rating, etc).
     /// </summary>
-    public class DisplayItemProperties
+    public class DisplayItemUserProperties
     {
         /// <summary>
         /// Internal set of tags on this item
@@ -36,7 +36,7 @@ namespace ImageCatalog
         /// <summary>
         /// Construct a new CatalogItem
         /// </summary>
-        public DisplayItemProperties()
+        public DisplayItemUserProperties()
         {
             this.rating = null;
             this.internalTags = new HashSet<string>();
@@ -46,7 +46,7 @@ namespace ImageCatalog
         /// Copy Constructor
         /// </summary>
         /// <param name="other"></param>
-        public DisplayItemProperties(DisplayItemProperties other)
+        public DisplayItemUserProperties(DisplayItemUserProperties other)
         {
             this.internalTags = new HashSet<string>(other.internalTags);
             this.rating = other.rating;
@@ -57,7 +57,7 @@ namespace ImageCatalog
         /// </summary>
         /// <param name="fullPath"></param>
         [JsonConstructor]
-        public DisplayItemProperties(string ItemFullPath)
+        public DisplayItemUserProperties(string ItemFullPath)
             : this()
         {
             this.ItemFullPath = ItemFullPath;

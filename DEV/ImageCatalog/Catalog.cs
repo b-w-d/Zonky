@@ -19,7 +19,7 @@ namespace ImageCatalog
         /// Structure containing the info
         /// </summary>
         [JsonProperty]
-        protected Dictionary<string, DisplayItemProperties> internalItemMap;
+        protected Dictionary<string, DisplayItemUserProperties> internalItemMap;
 
         /// <summary>
         /// TagRegister to help map tags to files
@@ -32,32 +32,32 @@ namespace ImageCatalog
         /// </summary>
         public Catalog()
         {
-            this.internalItemMap = new Dictionary<string, DisplayItemProperties>();
+            this.internalItemMap = new Dictionary<string, DisplayItemUserProperties>();
             this.tagRegister = new TagRegister();
         }
 
-        public static DisplayItemProperties DefaultDisplayItemProperties()
+        public static DisplayItemUserProperties DefaultDisplayItemProperties()
         {
-            return new DisplayItemProperties();
+            return new DisplayItemUserProperties();
         }
 
-        public DisplayItemProperties GetDisplayItemProperties(string file)
+        public DisplayItemUserProperties GetDisplayItemProperties(string file)
         {
             if (!this.internalItemMap.ContainsKey(file))
             {
                 return Catalog.DefaultDisplayItemProperties();
             }
 
-            return new DisplayItemProperties(this.internalItemMap[file]);
+            return new DisplayItemUserProperties(this.internalItemMap[file]);
         }
         
         public IEnumerable<string> GetTagsOnFile(string file)
         {
-            DisplayItemProperties item = GetDisplayItemProperties(file);
+            DisplayItemUserProperties item = GetDisplayItemProperties(file);
             return new List<string>(item.Tags);
         }
 
-        public IEnumerable<DisplayItemProperties> GetItemsWithTag(string tag)
+        public IEnumerable<DisplayItemUserProperties> GetItemsWithTag(string tag)
         {
             return this.tagRegister.Get(tag);
         }
@@ -74,7 +74,7 @@ namespace ImageCatalog
         /// <param name="tag"></param>
         public void TagFile(string file, string tag)
         {
-            DisplayItemProperties item = GetOrAddDisplayItemProp(file);
+            DisplayItemUserProperties item = GetOrAddDisplayItemProp(file);
 
             item.AddTag(tag);
             this.tagRegister.Register(tag, item);
@@ -92,7 +92,7 @@ namespace ImageCatalog
                 return;                
             }
 
-            DisplayItemProperties item = this.internalItemMap[file];
+            DisplayItemUserProperties item = this.internalItemMap[file];
 
             item.RemoveTag(tag);
             this.tagRegister.DeList(tag, item);
@@ -105,7 +105,7 @@ namespace ImageCatalog
         /// <param name="rating"></param>
         public void RateFile(string file, int rating)
         {
-            DisplayItemProperties item = GetOrAddDisplayItemProp(file);
+            DisplayItemUserProperties item = GetOrAddDisplayItemProp(file);
             item.Rating = rating;
         }
 
@@ -115,7 +115,7 @@ namespace ImageCatalog
         /// <param name="file"></param>
         public void ClearRating(string file)
         {
-            DisplayItemProperties item = GetOrAddDisplayItemProp(file);
+            DisplayItemUserProperties item = GetOrAddDisplayItemProp(file);
             item.Rating = null;
         }
 
@@ -125,13 +125,13 @@ namespace ImageCatalog
         /// </summary>
         /// <param name="file">The string to search on</param>
         /// <returns>A displayItemProperty of the string</returns>
-        protected DisplayItemProperties GetOrAddDisplayItemProp(string file)
+        protected DisplayItemUserProperties GetOrAddDisplayItemProp(string file)
         {
-            DisplayItemProperties item;
+            DisplayItemUserProperties item;
 
             if (!this.internalItemMap.ContainsKey(file))
             {
-                item = new DisplayItemProperties(file);
+                item = new DisplayItemUserProperties(file);
                 this.internalItemMap.Add(file, item);
             }
             else
