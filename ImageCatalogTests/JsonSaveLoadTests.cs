@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ImageCatalogTests
 {
     using ImageCatalog;
+    using PegView.ViewModel;
 
     [TestClass]
     public class JsonSaveLoadTests

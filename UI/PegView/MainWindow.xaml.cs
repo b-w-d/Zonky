@@ -32,7 +32,7 @@ namespace PegView
             CatalogTreeView catalogTreeView = this.FindName("CatalogView") as CatalogTreeView;
 
             ImageCatalog.IFileSaveLoad loader = new ImageCatalog.JsonSaveLoad();
-
+              
             ImageCatalogViewModel loaded = loader.Load<ImageCatalogViewModel>(this.FileSavePath);
             if(loaded == null)
             {

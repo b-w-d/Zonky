@@ -152,11 +152,9 @@ namespace ImageCatalog
                 {
                     if(Regex.IsMatch(file.Name, this.FileMatchPattern))
                     {
-                        DisplayItem newItem = new DisplayItem(file.FullName);
+                        DisplayItem newItem = new DisplayItem(file.FullName, CatalogRef);
 
-                        newItem.UserProperties = this.CatalogRef != null ? 
-                            this.CatalogRef.GetDisplayItemProperties(file.FullName) : 
-                            Catalog.DefaultDisplayItemProperties();
+                        newItem.CatalogRef = this.CatalogRef;
 
                         newItem.RunTimeProperties = new DisplayItemRuntimeProperties(file.FullName);
                             

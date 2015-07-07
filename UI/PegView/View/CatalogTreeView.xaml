@@ -5,17 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:view="clr-namespace:PegView.View"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <Style TargetType="TextBox">
-            <Style.Triggers>
-                <Trigger Property="Validation.HasError" Value="True">
-                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors).CurrentItem.ErrorContent}"></Setter>                    
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Resources>
-    
+             d:DesignHeight="300" d:DesignWidth="300">    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
@@ -24,7 +14,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>            
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
             <!-- This shit absolutely needs to be redone. -->
@@ -44,7 +34,7 @@
                     Command="{Binding CommandAddNewFile}" 
                     CommandParameter="{Binding ElementName=NewFileInput, Path=Text}">LOAD</Button>
         </StackPanel>
-        <TreeView Name="NavTree" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=NavTreeRootItems}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+        <TreeView Name="NavTree" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=NavTreeViewModelItems}" ScrollViewer.VerticalScrollBarVisibility="Visible">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding ChildContainers}">
                     <TextBlock Foreground="Black" Text="{Binding ItemName}" ToolTip="{Binding ItemFullPath}" ></TextBlock>
@@ -58,6 +48,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <view:ImagePropertyView Grid.RowSpan="2" Background="Red" x:Name="PropertyView" Grid.Column="3" Grid.Row="0" DataContext="{Binding ElementName=ItemListBox, Path=SelectedItem}"></view:ImagePropertyView>
+        
+        <view:DisplayItemView Grid.RowSpan="2" Grid.Column="2" Grid.Row="0" DataContext="{Binding ElementName=ItemListBox, Path=SelectedItem}"></view:DisplayItemView>
     </Grid>
 </UserControl>

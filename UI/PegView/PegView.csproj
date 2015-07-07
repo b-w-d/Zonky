@@ -58,11 +58,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModel\DelegateCommand.cs" />
+    <Compile Include="ViewModel\DisplayItemViewModel.cs" />
     <Compile Include="ViewModel\ImageCatalogViewModel.cs" />
+    <Compile Include="ViewModel\NavFolderViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\CatalogTreeView.xaml.cs">
       <DependentUpon>CatalogTreeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DisplayItemView.xaml.cs">
+      <DependentUpon>DisplayItemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ImagePropertyView.xaml.cs">
       <DependentUpon>ImagePropertyView.xaml</DependentUpon>
@@ -80,6 +85,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\CatalogTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DisplayItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

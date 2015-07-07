@@ -47,7 +47,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DisplayItemProperties.cs" />
+    <Compile Include="DisplayItemUserProperties.cs" />
     <Compile Include="DisplayItem.cs" />
     <Compile Include="DisplayItemRuntimeProperties.cs" />
     <Compile Include="IFileSaveLoad.cs" />
@@ -59,6 +59,7 @@
     <Compile Include="TagRegister.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ImageCatalog-ClassDiagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

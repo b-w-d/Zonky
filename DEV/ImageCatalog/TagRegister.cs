@@ -12,7 +12,7 @@ namespace ImageCatalog
     /// easy to find the tags associated with each. The reverse is not so simple. This class
     /// handles that case.
     /// </summary>
-    public class TagRegister
+    internal class TagRegister
     {
         /// <summary>
         /// Map of references tags --> CatalogItems
@@ -35,6 +35,8 @@ namespace ImageCatalog
         /// <param name="item">A reference to the item to tag</param>
         public void Register(string tagName, DisplayItemUserProperties item)
         {
+            ValidateTag(tagName);
+
             if(!this.tagBase.ContainsKey(tagName))
             {
                 this.tagBase.Add(tagName, new List<DisplayItemUserProperties>());
@@ -58,6 +60,8 @@ namespace ImageCatalog
         /// <param name="item">reference to the DisplayItemProperties to remove</param>
         public void DeList(string tagName, DisplayItemUserProperties item)
         {
+            ValidateTag(tagName);
+            
             if(!this.tagBase.ContainsKey(tagName))
             {
                 return;
@@ -87,6 +91,19 @@ namespace ImageCatalog
             }
 
             return new List<DisplayItemUserProperties>();
+        }
+
+        private bool IsTagValid(string tag)
+        {
+            return(!string.IsNullOrWhiteSpace(tag));
+        }
+
+        private void ValidateTag(string tag)
+        {
+            if(!IsTagValid(tag))
+            {
+                throw new ArgumentException(string.Format("Tag '{0}' Failed Validation ", tag));
+            }
         }
     }
 }

@@ -18,7 +18,17 @@ namespace ImageCatalog
         /// <param name="Path">The full path to the item</param>
         public DisplayItem(string Path)
         {
+            this.ItemFullPath = Path;            
+        }
+
+        /// <summary>
+        /// Create a new DisplayItem 
+        /// </summary>
+        /// <param name="Path">The full path to the item</param>
+        public DisplayItem(string Path, Catalog catalogRef)
+        {
             this.ItemFullPath = Path;
+            this.CatalogRef = catalogRef;
         }
 
         /// <summary>
@@ -43,12 +53,27 @@ namespace ImageCatalog
         }
 
         /// <summary>
+        /// Reference to the catalog, so we can add tags and user properties
+        /// </summary>
+        public Catalog CatalogRef
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// User added properties about the item
         /// </summary>
         public DisplayItemUserProperties UserProperties
         {
-            get;
-            set;
+            get
+            {
+                DisplayItemUserProperties UserProperties = this.CatalogRef != null ?
+                    this.CatalogRef.GetDisplayItemProperties(ItemFullPath) :
+                    Catalog.DefaultDisplayItemProperties();
+
+                return UserProperties;
+            }           
         }
 
         /// <summary>

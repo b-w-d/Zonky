@@ -25,7 +25,7 @@ namespace ImageCatalog
         /// TagRegister to help map tags to files
         /// </summary>
         [JsonProperty]
-        protected TagRegister tagRegister;
+        internal TagRegister tagRegister;
 
         /// <summary>
         /// Create a new, empty ImageCatalog
@@ -36,11 +36,20 @@ namespace ImageCatalog
             this.tagRegister = new TagRegister();
         }
 
+        /// <summary>
+        /// Retrieve a default DisplayItemUserProperties
+        /// </summary>
+        /// <returns></returns>
         public static DisplayItemUserProperties DefaultDisplayItemProperties()
         {
             return new DisplayItemUserProperties();
         }
 
+        /// <summary>
+        /// Retrieve the DisplayItemUserProperties on a file
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
         public DisplayItemUserProperties GetDisplayItemProperties(string file)
         {
             if (!this.internalItemMap.ContainsKey(file))
@@ -48,20 +57,35 @@ namespace ImageCatalog
                 return Catalog.DefaultDisplayItemProperties();
             }
 
-            return new DisplayItemUserProperties(this.internalItemMap[file]);
+            return this.internalItemMap[file];
         }
         
+        /// <summary>
+        /// Retrieves the tags on a given file
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
         public IEnumerable<string> GetTagsOnFile(string file)
         {
             DisplayItemUserProperties item = GetDisplayItemProperties(file);
             return new List<string>(item.Tags);
         }
 
+        /// <summary>
+        /// Retrieve the items with a certain tag
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
         public IEnumerable<DisplayItemUserProperties> GetItemsWithTag(string tag)
         {
             return this.tagRegister.Get(tag);
         }
 
+        /// <summary>
+        /// Retrieve the files with a certain tag
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
         public IEnumerable<string> GetFilesWithTag(string tag)
         {
             return this.GetItemsWithTag(tag).Select(n => n.ItemFullPath);
@@ -73,7 +97,12 @@ namespace ImageCatalog
         /// <param name="file"></param>
         /// <param name="tag"></param>
         public void TagFile(string file, string tag)
-        {
+        {            
+            if(string.IsNullOrWhiteSpace(tag))
+            {
+                return;
+            }
+            
             DisplayItemUserProperties item = GetOrAddDisplayItemProp(file);
 
             item.AddTag(tag);
@@ -86,7 +115,12 @@ namespace ImageCatalog
         /// <param name="file"></param>
         /// <param name="tag"></param>
         public void UnTagFile(string file, string tag)
-        {            
+        {
+            if (string.IsNullOrWhiteSpace(tag))
+            {
+                return;
+            }
+
             if (!this.internalItemMap.ContainsKey(file))
             {
                 return;                
@@ -96,6 +130,46 @@ namespace ImageCatalog
 
             item.RemoveTag(tag);
             this.tagRegister.DeList(tag, item);
+        }
+
+        /// <summary>
+        /// Sets tags on a file using a simple semi-colon separated string
+        /// </summary>
+        /// <param name="file">The file to add the properties to</param>
+        /// <param name="semiColonSeparatedTags">The string of tags to add</param>
+        public void SetTagsOnFile(string file, string semiColonSeparatedTags)
+        {
+            List<string> tags = new List<string>(semiColonSeparatedTags.Split(';').Select(n => n.Trim()));
+            this.SetTagsOnFile(file, tags);
+        }
+        
+        /// <summary>
+        /// Sets tags on a file using an IEnumerable List
+        /// </summary>
+        /// <param name="file">The file to add the properties to</param>
+        /// <param name="newTags">List of new tags to add</param>
+        public void SetTagsOnFile(string file, IEnumerable<string> newTags)
+        {
+            DisplayItemUserProperties userProps = GetDisplayItemProperties(file);
+            HashSet<string> previousTags = new HashSet<string>(userProps.Tags);
+                        
+            foreach(string newTag in newTags)
+            {
+                if(previousTags.Contains(newTag))
+                {
+                    previousTags.Remove(newTag);                    
+                    continue;
+                }
+                else
+                {
+                    this.TagFile(file, newTag);
+                }
+            }
+
+            foreach(string oldTag in previousTags)
+            {
+                this.UnTagFile(file, oldTag);                
+            }
         }
 
         /// <summary>

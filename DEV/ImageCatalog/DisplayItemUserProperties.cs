@@ -126,7 +126,7 @@ namespace ImageCatalog
         /// Add a descriptive tag to the item
         /// </summary>
         /// <param name="tag">The tag to add</param>
-        public void AddTag(string tag)
+        internal void AddTag(string tag)
         {
             if(this.internalTags.Contains(tag))
             {
@@ -143,7 +143,7 @@ namespace ImageCatalog
         /// Remove a tag from an item
         /// </summary>
         /// <param name="tag"></param>
-        public void RemoveTag(string tag)
+        internal void RemoveTag(string tag)
         {
             if (this.internalTags.Contains(tag))
             {
@@ -152,6 +152,6 @@ namespace ImageCatalog
             
             // TODO : possible event hookup with TagRegister ?
             // if nothing else, be sure the caller handles it manually;
-        }     
+        }
     }
 }

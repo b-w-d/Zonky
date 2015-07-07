@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 namespace PegView.ViewModel
 {
     using ImageCatalog;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// ViewmModel for ImageCatalog.
@@ -79,6 +80,15 @@ namespace PegView.ViewModel
             {
                 return this.items;
             }
+        }
+
+        [JsonIgnore]
+        public ObservableCollection<NavFolderViewModel> NavTreeViewModelItems
+        {
+            get
+            {
+                return new ObservableCollection<NavFolderViewModel>(this.items.Select(n => new NavFolderViewModel(n)));
+            }            
         }
 
         public Catalog ImageCatalog
