@@ -5,48 +5,74 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+
     <Grid>
-        <Grid.ColumnDefinitions >
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Visible"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <!-- We should fix this to a better error screen. this prevents an empty DisplayItemView from showing when nothing is selected.-->
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">SELECT AN IMAGE. AND UPDATE THIS MESSAGE.</TextBlock>
+        </Grid>
+        <Grid>
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Visible"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
 
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
-        <Image Source="{Binding Path=ItemFullPath}" Grid.Row="0" Grid.ColumnSpan="2"></Image>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
 
-        <StackPanel  Grid.Row="1" Grid.Column="0">
-            <TextBlock Text="Full Path : "></TextBlock>
-            <TextBlock Text="Name : "></TextBlock>
-            <TextBlock Text="Bytes Read : "></TextBlock>
-            <TextBlock Text="Disk Access Count : "></TextBlock>
-            <TextBlock Text="Image Load Count : "></TextBlock>
-            <TextBlock Text="Height : "></TextBlock>
-            <TextBlock Text="TagCount : "></TextBlock>
-            <TextBlock Text="Tags : "></TextBlock>
-            <TextBlock Text="TagList : "></TextBlock>
-        </StackPanel>
+            <Image Source="{Binding Path=ItemFullPath}" Grid.Row="0" Grid.ColumnSpan="2"></Image>
 
-        <StackPanel  Grid.Row="1" Grid.Column="1">
-            <TextBlock Text="{Binding Path=ItemFullPath}"></TextBlock>
-            <TextBlock Text="{Binding Path=ItemName}"></TextBlock>
-            <TextBlock Text="{Binding Path=ItemReference.RunTimeProperties.BitsRead}"></TextBlock>
-            <TextBlock Text="{Binding Path=ItemReference.RunTimeProperties.ByteArrayTaskAccessCount}"></TextBlock>
-            <TextBlock Text="{Binding Path=ItemReference.RunTimeProperties.ImageLoadTaskAccessCount}"></TextBlock>
-            <TextBlock Text="{Binding Path=ItemReference.RunTimeProperties.ImageProperties.Height}"></TextBlock>
-            <TextBlock Text="{Binding Path=Tags.Count}"></TextBlock>
-            <TextBox Text="{Binding Path=TagsConcatenated, Mode=OneWay}" >
-                <TextBox.InputBindings>
-                    <KeyBinding Command="{Binding Path=AddTag}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=TextBox}, Path=Text}" Key="Enter"></KeyBinding>
-                </TextBox.InputBindings>
-            </TextBox>
-            <ListBox Height="300" ItemsSource="{Binding Path=Tags}">
-            </ListBox>
-        </StackPanel>
+            <StackPanel  Grid.Row="1" Grid.Column="0">
+                <TextBlock Text="Full Path : "></TextBlock>
+                <TextBlock Text="Name : "></TextBlock>
+                <TextBlock Text="Bytes Read : "></TextBlock>
+                <TextBlock Text="Disk Access Count : "></TextBlock>
+                <TextBlock Text="Image Load Count : "></TextBlock>
+                <TextBlock Text="Height : "></TextBlock>
+                <TextBlock Text="TagCount : "></TextBlock>
+                <TextBlock Text="Tags : "></TextBlock>
+                <TextBlock Text="TagList : "></TextBlock>
+            </StackPanel>
 
+            <StackPanel  Grid.Row="1" Grid.Column="1">
+                <TextBlock Text="{Binding Path=ItemFullPath}"></TextBlock>
+                <TextBlock Text="{Binding Path=ItemName}"></TextBlock>
+                <TextBlock Text="{Binding Path=ItemReference.RunTimeProperties.BitsRead}"></TextBlock>
+                <TextBlock Text="{Binding Path=ItemReference.RunTimeProperties.ByteArrayTaskAccessCount}"></TextBlock>
+                <TextBlock Text="{Binding Path=ItemReference.RunTimeProperties.ImageLoadTaskAccessCount}"></TextBlock>
+                <TextBlock Text="{Binding Path=ItemReference.RunTimeProperties.ImageProperties.Height}"></TextBlock>
+                <TextBlock Text="{Binding Path=Tags.Count}"></TextBlock>
+                <TextBox Text="{Binding Path=TagsConcatenated, Mode=OneWay}" >
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="{Binding Path=AddTag}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=TextBox}, Path=Text}" Key="Enter"></KeyBinding>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <ListBox Height="300" ItemsSource="{Binding Path=Tags}">
+                </ListBox>
+            </StackPanel>
+        </Grid>
     </Grid>
-
 </UserControl>

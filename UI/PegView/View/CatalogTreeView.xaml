@@ -48,7 +48,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        
+
         <view:DisplayItemView Grid.RowSpan="2" Grid.Column="2" Grid.Row="0" DataContext="{Binding ElementName=ItemListBox, Path=SelectedItem}"></view:DisplayItemView>
     </Grid>
 </UserControl>
