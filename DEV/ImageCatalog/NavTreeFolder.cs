@@ -81,7 +81,7 @@ namespace ImageCatalog
         }
         
         [JsonIgnore]
-        public Catalog CatalogRef
+        public override Catalog CatalogRef
         {
             get;
             set;

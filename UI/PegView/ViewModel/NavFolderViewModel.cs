@@ -11,14 +11,17 @@ namespace PegView.ViewModel
 
     public class NavFolderViewModel : ViewModelBase
     {
-        protected internal NavTreeFolder internalNavFolderReference;
+        protected internal NavTreeItemBase internalNavFolderReference;
+
+        private bool isSelected;
 
         public NavFolderViewModel(NavTreeItemBase other)
         {
-            ItemReference = other as NavTreeFolder;
+            ItemReference = other;
+            NavItemIsSelected = false;
         }
 
-        public NavTreeFolder ItemReference
+        public NavTreeItemBase ItemReference
         {
             get
             {
@@ -40,6 +43,19 @@ namespace PegView.ViewModel
             {
                 return this.ItemReference.ItemName;
             }            
+        }
+        
+        public bool NavItemIsSelected
+        {
+            get
+            {
+                return this.isSelected;
+            }
+            set
+            {
+                this.isSelected = value;
+                this.RaisePropertyChangedEvent("NavItemIsSelected");
+            }
         }
 
         /// <summary>

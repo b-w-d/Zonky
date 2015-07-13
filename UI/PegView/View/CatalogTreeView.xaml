@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:view="clr-namespace:PegView.View"
+             xmlns:e="http://schemas.microsoft.com/expression/2010/interactivity"             
+             xmlns:view="clr-namespace:PegView.View"            
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">    
     <Grid>
@@ -16,6 +17,8 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>            
         </Grid.ColumnDefinitions>
+
+        <!-- Nav Tree : Adding in new Folders -->
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
             <!-- This shit absolutely needs to be redone. -->
             <Border>
@@ -34,14 +37,43 @@
                     Command="{Binding CommandAddNewFile}" 
                     CommandParameter="{Binding ElementName=NewFileInput, Path=Text}">LOAD</Button>
         </StackPanel>
-        <TreeView Name="NavTree" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=NavTreeViewModelItems}" ScrollViewer.VerticalScrollBarVisibility="Visible">
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding ChildContainers}">
-                    <TextBlock Foreground="Black" Text="{Binding ItemName}" ToolTip="{Binding ItemFullPath}" ></TextBlock>
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>            
-        </TreeView>
-        <ListBox Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" ItemsSource="{Binding ElementName=NavTree, Path=SelectedItem.ChildItems}" Name="ItemListBox">
+
+        <!-- NavTree : Navigation, image selection -->
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical">
+            <TreeView>
+                <TreeViewItem Header="Folders">
+                    <TreeView Name="NavTree" ItemsSource="{Binding Path=NavTreeFolderItems}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding ChildContainers}">
+                                <TextBlock Foreground="Black" Text="{Binding ItemName}" ToolTip="{Binding ItemFullPath}" ></TextBlock>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+                </TreeViewItem>
+                <e:Interaction.Behaviors>
+                    <view:BindableSelectedItemBehavior SelectedItem="{Binding SelectedFolderItem, Mode=TwoWay}"></view:BindableSelectedItemBehavior>
+                </e:Interaction.Behaviors>
+            </TreeView>
+            <TreeView>
+                <TreeViewItem Header="Tags">
+                    <ListBox ItemsSource="{Binding Path=NavTreeTagItems}" SelectionMode="Extended" SelectionChanged="ListBox_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ItemName}" ToolTip="{Binding ItemFullPath}"></TextBlock>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="IsSelected" Value="{Binding NavItemIsSelected}"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </TreeViewItem>
+            </TreeView>
+        </StackPanel>
+
+        <!-- Data Display (List) -->
+        <ListBox Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" ItemsSource="{Binding Path=SelectedSubNavItems}" Name="ItemListBox">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding ItemName}"></TextBlock>
@@ -49,6 +81,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
+        <!-- Data Display (Detail) -->
         <view:DisplayItemView Grid.RowSpan="2" Grid.Column="2" Grid.Row="0" DataContext="{Binding ElementName=ItemListBox, Path=SelectedItem}"></view:DisplayItemView>
     </Grid>
 </UserControl>

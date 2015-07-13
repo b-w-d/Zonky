@@ -55,8 +55,10 @@ UI/PegView/obj/
 UI/PegView/bin/
 ImageCatalogTests/bin/
 ImageCatalogTests/obj/
+packages/Expression.Blend.Sdk.1.0.2/
 
 Catalog.data
 
 *.suo
 *.user
+*.cd

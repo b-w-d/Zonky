@@ -47,5 +47,11 @@ namespace ImageCatalog
             get;
             protected set;
         }
+
+        public virtual Catalog CatalogRef
+        {
+            get;
+            set;
+        }
     }
 }

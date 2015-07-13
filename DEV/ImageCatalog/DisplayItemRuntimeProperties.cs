@@ -59,7 +59,7 @@ namespace ImageCatalog
             .ContinueWith((antecedent) => 
             {
                 Interlocked.Increment(ref imageLoadCount);                
-                return this.GetImageLoadTask(antecedent.Result);
+                return this.GetImageLoadTask(antecedent.Result); // Exception - cant load, file used by another process. Think this is the same process, happpens when selecting a 2 tags with same item.
             })
             .ContinueWith((antecedent) =>
             {
@@ -195,6 +195,8 @@ namespace ImageCatalog
             Task<Image> loadTask = Task<Image>.Run(() =>
             {
                 MemoryStream stream = new MemoryStream(array);
+                
+                // TODO : out of memory exception
                 return Image.FromStream(stream);
             });
 

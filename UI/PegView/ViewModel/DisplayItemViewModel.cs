@@ -139,6 +139,7 @@ namespace PegView.ViewModel
                             CatalogReference.SetTagsOnFile(this.ItemFullPath, parameter as string);
                             this.RaisePropertyChangedEvent("ItemReference");
                             this.RaisePropertyChangedEvent("Tags");
+                            
                         });
                 }
                 return this.addTagCommand;

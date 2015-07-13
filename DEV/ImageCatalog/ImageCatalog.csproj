@@ -54,6 +54,7 @@
     <Compile Include="NavTreeFolder.cs" />
     <Compile Include="Catalog.cs" />
     <Compile Include="NavTreeItemBase.cs" />
+    <Compile Include="NavTreeTagGroups.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="JsonSaveLoad.cs" />
     <Compile Include="TagRegister.cs" />

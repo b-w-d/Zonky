@@ -92,6 +92,15 @@ namespace ImageCatalog
         }
 
         /// <summary>
+        /// Return a
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<string> GetTags()
+        {
+            return this.tagRegister.Tags;
+        }
+
+        /// <summary>
         /// Tag a file
         /// </summary>
         /// <param name="file"></param>

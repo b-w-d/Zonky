@@ -93,6 +93,14 @@ namespace ImageCatalog
             return new List<DisplayItemUserProperties>();
         }
 
+        public IEnumerable<string> Tags
+        {
+            get
+            {
+                return tagBase.Keys.OrderBy(s => s);
+            }
+        }
+
         private bool IsTagValid(string tag)
         {
             return(!string.IsNullOrWhiteSpace(tag));

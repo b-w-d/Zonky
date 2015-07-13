@@ -27,5 +27,12 @@ namespace PegView.View
         {
             InitializeComponent();          
         }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {            
+            ImageCatalogViewModel catalogVM = this.DataContext as ImageCatalogViewModel;
+            catalogVM.ClearSelectedFolders();
+            catalogVM.SelectedNavigationItems = null; // fire the setter to             
+        }
     }
 }
